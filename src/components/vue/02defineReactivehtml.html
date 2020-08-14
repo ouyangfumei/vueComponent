@@ -1,0 +1,35 @@
+<div id="app"></div>
+<script>
+    // vue源码 object.definePropty()
+// 拦截：对某个对象的某个key做拦截 {get...set...}
+function defineReactive(obj,key,val){
+    Object.defineProperty(obj,key,{
+        get(){
+            console.log(val)
+            console.log('get',key);
+            return val;
+        },
+        set(newVal){
+            if(val!==newVal){
+                val = newVal;
+                console.log(newVal)
+                console.log('set',key);
+                update();
+            }
+        }
+    })
+}
+// 使用：
+let obj = {}
+defineReactive(obj,'foo',1);
+// obj.foo
+// obj.foo = 'fppppppppppp'
+
+function update(){
+    app.innerHTML = obj.foo;
+}
+setInterval(()=>{
+    obj.foo++;
+},1000)
+
+</script>
